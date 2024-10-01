@@ -1,13 +1,13 @@
 class MembershipType:
     def __init__(self, id, type_name, benefits=None):
-        self.id = id
+        self.id = str(id)
         self.type_name = type_name
         self.benefits = benefits
 
     @classmethod
     def from_db_record(cls, record):
         return cls(
-            id=record.get('id'),
+            id=str(record.get('id')),
             type_name=record.get('type_name'),
             benefits=record.get('benefits')
         )

@@ -1,6 +1,6 @@
 class Book:
     def __init__(self, id, title, isbn, count=1, is_rentable=True, publication_year=None, publisher=None, language=None):
-        self.id = id
+        self.id = str(id)
         self.title = title
         self.isbn = isbn
         self.count = count
@@ -12,7 +12,7 @@ class Book:
     @classmethod
     def from_db_record(cls, record):
         return cls(
-            id=record.get('id'),
+            id=str(record.get('id')),
             title=record.get('title'),
             isbn=record.get('isbn'),
             count=record.get('count', 1),

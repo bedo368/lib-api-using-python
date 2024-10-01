@@ -9,7 +9,7 @@ def get_user(user_id):
     query = """
            select * from users WHERE id = %s
        """
-    params = (user_id,)
+    params = (str(user_id),)
 
     try:
         with Database() as db:
@@ -20,5 +20,5 @@ def get_user(user_id):
 
             return jsonify({'message': f'User {user.name} added with ID {user.id}.', 'user': user.to_dict()}), 201
     except Exception as e:
-        logging.error(f"Error in add_user: {e}")
+        logging.error(f"Error in get user: {e}")
         return jsonify({'error': 'Failed to add user.'}), 500
