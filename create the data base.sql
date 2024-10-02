@@ -1,6 +1,6 @@
 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
---  you might want to watch the data base design again because this is my first design
+--  you might want to watch the data base design again because this is my first design i am coming from non sql database
 -- Users Table
 CREATE TABLE Users (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -88,7 +88,7 @@ DECLARE
     available_quantity INTEGER;
 BEGIN
     -- Get the available quantity of the book
-    SELECT quantity INTO available_quantity
+    SELECT count INTO available_quantity
     FROM books
     WHERE id = NEW.book_id;
 
@@ -100,7 +100,7 @@ BEGIN
 
     -- Subtract the quantity from the books table
     UPDATE books
-    SET quantity = quantity - NEW.quantity
+    SET count = count - NEW.quantity
     WHERE id = NEW.book_id;
 
     RETURN NEW;  -- Return the new row for insertion into order_items
