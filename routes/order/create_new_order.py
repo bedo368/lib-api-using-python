@@ -5,7 +5,7 @@ from flask import request, jsonify
 from marshmallow import ValidationError
 
 from core.database.database import Database
-from routes.order.validate_reqests.validate_cerate_request import validate_create_order_schema
+from routes.order.validate_reqests.validate_cerate_request import CreateNewOrderSchema
 
 
 def create_new_order():
@@ -15,7 +15,7 @@ def create_new_order():
     try:
         data = request.get_json()
 
-        validate_create_order_schema.load(data)
+        CreateNewOrderSchema().load(data)
 
 
         with Database() as db:
