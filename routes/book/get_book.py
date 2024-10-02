@@ -4,12 +4,7 @@ from models.book_model import Book
 def get_book(book_id) :
     book_id = str(book_id)
 
-    get_query = """
-        SELECT b.*, a.name AS author_name
-        FROM books b
-        JOIN authors a ON b.author_id = a.id
-         WHERE b.id = %s;
-    """
+    get_query = Book.get_book_query
     try:
         with Database() as db:
             db.cursor.execute(get_query  , (book_id,))

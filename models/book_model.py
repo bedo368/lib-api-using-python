@@ -1,4 +1,11 @@
 class Book:
+
+    get_book_query = """
+        SELECT b.*, a.name AS author_name
+        FROM books b
+        JOIN authors a ON b.author_id = a.id
+         WHERE b.id = %s;
+    """
     def __init__(self, id, title , author_id  , author_name,  count=1, is_rentable=True, language=None ,  ):
         self.id = str(id)
         self.title = title

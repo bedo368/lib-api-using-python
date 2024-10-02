@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="HttpClientEndpointsTabState">
+    <option name="requestToText" value="&lt;CachedHttpClientTabRequests&gt;&#10;  &lt;entry key=&quot;283c0c527022e578d56e9d590ae7268d3589b99f&quot; value=&quot;###&amp;#10;GET http://localhost:5000/api/books/{{book_id}}&quot; /&gt;&#10;  &lt;entry key=&quot;36d9c58b267995cb8d35e55d3c2fe8beab898886&quot; value=&quot;###&amp;#10;PATCH http://localhost:5000/api/books/{{book_id}}&quot; /&gt;&#10;  &lt;entry key=&quot;a893c3a3e44cef0c4fc5b05167cb87a685b0a3d1&quot; value=&quot;###&amp;#10;POST http://localhost:5000/api/books&quot; /&gt;&#10;  &lt;entry key=&quot;7507384e5e1024bdb824733f586ff0d09bf05c03&quot; value=&quot;###&amp;#10;DELETE http://localhost:5000/api/users/{{user_id}}&quot; /&gt;&#10;&lt;/CachedHttpClientTabRequests&gt;" />
+  </component>
+</project>

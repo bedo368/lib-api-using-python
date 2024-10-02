@@ -42,7 +42,6 @@ def add_book():
 
             if category is None:
                 db.cursor.execute("INSERT INTO categories (name) VALUES (%s)", (category_name,))
-                print("fffff")
                 db.cursor.execute("Select * from categories where name = %s", (category_name,))
                 category = Category.from_db_record(db.cursor.fetchone())
                 print(category.id)

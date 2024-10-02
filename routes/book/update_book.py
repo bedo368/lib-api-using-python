@@ -40,20 +40,14 @@ def update_book(book_id):
 
         with Database() as db:
             db.cursor.execute(update_query, params)
-            if(db.cursor.rowcount == 0 ) :
+            if db.cursor.rowcount == 0:
                 return  {
                     "status": "fail",
                     "message": "no book with this id " ,
 
                 }, 404
 
-            select_query = """
-        SELECT b.*, a.name AS author_name
-        FROM books b
-        JOIN authors a ON b.author_id = a.id
-         WHERE b.id = %s;
-    """
-            db.cursor.execute(select_query, (str(book_id),))
+            db.cursor.execute(Book.get_book_query, (str(book_id),))
             # print(db.cursor.fetchone())
             return {
                 "status": "ok",
