@@ -4,15 +4,15 @@ from datetime import datetime
 
 
 class User:
-    def __init__(self, id, name, phone_number, email=None, address=None, membership_type_id=None, date_joined=None,
-                 is_active=True , is_admin=False):
-        self.id = str(id)
+    def __init__(self, user_id, name, phone_number, email=None, address=None, membership_type_id=None, date_joined=None,
+                 is_active=True, is_admin=False):
+        self.id = str(user_id)
         self.name = name
         self.phone_number = phone_number
         self.email = email
         self.address = address
         self.membership_type_id = membership_type_id
-        self.date_joined = date_joined or datetime.utcnow().date()
+        self.date_joined = date_joined or datetime.now().date()
         self.is_active = is_active
         self.is_admin =is_admin
 
@@ -25,7 +25,7 @@ class User:
         :return: An instance of User.
         """
         return cls(
-            id=str(record.get('id')),
+            user_id=str(record.get('id')),
             name=record.get('name'),
             phone_number=record.get('phone_number'),
             email=record.get('email'),

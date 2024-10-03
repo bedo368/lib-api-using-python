@@ -1,6 +1,6 @@
 class Rent:
-    def __init__(self, id, user_id, book_id, rent_date, due_date, return_date=None, status='Rented', fine=0.00):
-        self.id = str(id)
+    def __init__(self, rent_id, user_id, book_id, rent_date, due_date, return_date=None, status='Rented', fine=0.00):
+        self.id = str(rent_id)
         self.user_id = user_id
         self.book_id = book_id
         self.rent_date = rent_date
@@ -12,7 +12,7 @@ class Rent:
     @classmethod
     def from_db_record(cls, record):
         return cls(
-            id=str(record.get('id')),
+            rent_id=str(record.get('id')),
             user_id=record.get('user_id'),
             book_id=record.get('book_id'),
             rent_date=record.get('rent_date'),

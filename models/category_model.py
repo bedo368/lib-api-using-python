@@ -1,13 +1,13 @@
 class Category:
-    def __init__(self, id, name, description=None):
-        self.id = str(id)
+    def __init__(self, category_id, name, description=None):
+        self.id = str(category_id)
         self.name = name
         self.description = description
 
     @classmethod
     def from_db_record(cls, record):
         return cls(
-            id=str(record.get('id')),
+            category_id=str(record.get('id')),
             name=record.get('name'),
             description=record.get('description')
         )

@@ -1,7 +1,7 @@
 from flask import Blueprint
 
 from routes.book.add_book import add_book
-from routes.book.get_all_books import get_books_by_page
+from routes.book.get_book_by_page import get_books_by_page
 from routes.book.get_book import get_book
 from routes.book.update_book import update_book
 

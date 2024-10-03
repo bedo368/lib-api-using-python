@@ -6,8 +6,8 @@ class Book:
         JOIN authors a ON b.author_id = a.id
          WHERE b.id = %s;
     """
-    def __init__(self, id, title , author_id  , author_name,  count=1, is_rentable=True, language=None ,  ):
-        self.id = str(id)
+    def __init__(self, book_id, title, author_id, author_name, count=1, is_rentable=True, language=None, ):
+        self.id = str(book_id)
         self.title = title
         self.count = count
         self.is_rentable = is_rentable
@@ -18,7 +18,7 @@ class Book:
     @classmethod
     def from_db_record(cls, record):
         return cls(
-            id=str(record.get('id')),
+            book_id=str(record.get('id')),
             title=record.get('title'),
             count=record.get('count', 1),
             is_rentable=record.get('is_rentable', True),

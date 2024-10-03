@@ -43,7 +43,7 @@ def create_user():
 
             # Create a User instance using from_db_record
             user = User(
-                id=user_id,
+                user_id=user_id,
                 name=name,
                 phone_number=phone_number,
                 email=email,

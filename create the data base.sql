@@ -81,6 +81,23 @@ CREATE TABLE Book_Copies (
     location VARCHAR(100)
 );
 
+
+CREATE TABLE orders (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    user_id UUID REFERENCES "user" (id) ON DELETE CASCADE,
+    purchase_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    total_price DECIMAL(10, 2) NOT NULL
+);
+
+CREATE TABLE order_items (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    order_id UUID REFERENCES orders (id) ON DELETE CASCADE,
+    book_id UUID REFERENCES book (id) ON DELETE CASCADE,
+    quantity INT DEFAULT 1,
+    price_per_item DECIMAL(10, 2) NOT NULL
+);
+
+
 --  create data base trigger for adding new items and check if the quantity is less then the items count in the books tabel
 CREATE OR REPLACE FUNCTION check_and_update_book_quantity()
 RETURNS TRIGGER AS $$
