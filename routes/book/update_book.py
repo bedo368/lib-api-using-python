@@ -52,7 +52,7 @@ def update_book(book_id):
             return {
                 "status": "ok",
                 "message": "book updated successfully",
-                "book" : Book.from_db_record(db.cursor.fetchone()).to_dict()
+                "data" : Book.from_db_record(db.cursor.fetchone()).to_dict()
 
             },200
 

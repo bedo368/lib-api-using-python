@@ -20,7 +20,7 @@ def get_book(book_id) :
 
             return  {
                 "message": "success",
-                "book": book
+                "data": book
             }, 200
     except Exception as e:
 

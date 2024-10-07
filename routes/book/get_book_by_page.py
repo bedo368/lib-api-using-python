@@ -38,7 +38,7 @@ def get_books_by_page():
 
             return {
                 "message": "success",
-                "books": books
+                "data": books
             }
 
     except Exception as e:

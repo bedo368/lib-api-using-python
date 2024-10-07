@@ -24,6 +24,7 @@ def delete_user(user_id):
 
         return {
             "message": f"User with id {user_id} deleted successfully",
+            "data": user_id
 
         },200
 

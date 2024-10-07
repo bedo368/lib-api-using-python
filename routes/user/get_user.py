@@ -18,7 +18,7 @@ def get_user(user_id):
 
             user = User.from_db_record(db.cursor.fetchone())
 
-            return jsonify({'message': f'User {user.name} added with ID {user.id}.', 'user': user.to_dict()}), 201
+            return jsonify({'message': f'User {user.name} added with ID {user.id}.', 'data': user.to_dict()}), 201
     except Exception as e:
         logging.error(f"Error in get user: {e}")
         return jsonify({'error': 'Failed to add user.'}), 500

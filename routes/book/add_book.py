@@ -75,7 +75,7 @@ def add_book():
         # Success response
         return jsonify({
             'message': f'Book "{title}" added successfully with category "{category_name}" and author "{author_name}".',
-            'book_id': str(book_id)
+            'data': str(book_id)
         }), 201
 
     except Exception as e:

@@ -7,7 +7,8 @@ from marshmallow import ValidationError
 from core.database.database import Database
 from routes.order.validate_reqests.validate_cerate_request import CreateNewOrderSchema
 
-
+# there a trigger in the database that reduce the number of items by the number on the order and if thier is no enugh itemes in the store it stop and throw error
+# you can handele this by your self in the code but id add trigger
 def create_new_order():
 
 
@@ -35,7 +36,7 @@ def create_new_order():
                             )
 
             return {'message': 'Order created successfully' ,
-                    "order_id":order_id }, 201
+                    "data":order_id }, 201
 
 
 
