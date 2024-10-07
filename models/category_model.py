@@ -7,14 +7,10 @@ class Category:
     @classmethod
     def from_db_record(cls, record):
         return cls(
-            category_id=str(record.get('id')),
-            name=record.get('name'),
-            description=record.get('description')
+            category_id=str(record.get("id")),
+            name=record.get("name"),
+            description=record.get("description"),
         )
 
     def to_dict(self):
-        return {
-            'id': self.id,
-            'name': self.name,
-            'description': self.description
-        }
+        return {"id": self.id, "name": self.name, "description": self.description}

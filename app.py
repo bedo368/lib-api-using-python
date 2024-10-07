@@ -3,7 +3,8 @@ from flask import Flask
 from routes.book import book_bp
 from routes.order import orders_bp
 from routes.user import user_bp
-from flask import  request
+from flask import request
+
 app = Flask(__name__)
 
 
@@ -14,10 +15,11 @@ def before_every_request():
 
     # Example: Set a global variable
 
-app.register_blueprint(user_bp, url_prefix='/api')
-app.register_blueprint(book_bp, url_prefix='/api')
 
-app.register_blueprint(orders_bp, url_prefix='/api')
+app.register_blueprint(user_bp, url_prefix="/api")
+app.register_blueprint(book_bp, url_prefix="/api")
 
-if __name__ == '__main__':
+app.register_blueprint(orders_bp, url_prefix="/api")
+
+if __name__ == "__main__":
     app.run(debug=True)

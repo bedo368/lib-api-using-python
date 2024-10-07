@@ -7,14 +7,10 @@ class Author:
     @classmethod
     def from_db_record(cls, record):
         return cls(
-            author_id=str(record.get('id')),
-            name=record.get('name'),
-            bio=record.get('bio')
+            author_id=str(record.get("id")),
+            name=record.get("name"),
+            bio=record.get("bio"),
         )
 
     def to_dict(self):
-        return {
-            'id': self.id,
-            'name': self.name,
-            'bio': self.bio
-        }
+        return {"id": self.id, "name": self.name, "bio": self.bio}

@@ -1,5 +1,3 @@
-
-
 from flask import request
 from marshmallow import ValidationError
 
@@ -35,33 +33,32 @@ OFFSET %s ROWS FETCH NEXT 5 ROWS ONLY
         ValidatePageSchema().load(data)
 
         with Database() as db:
-            db.cursor.execute(query  , (data['page'],))
+            db.cursor.execute(query, (data["page"],))
             result = db.cursor.fetchall()
 
             if result.__len__() == 0:
-                return  {
-                    "status": "failure",
-                    "message": "No more orders found"
-
-                },404
+                return {"status": "failure", "message": "No more orders found"}, 404
 
             # Organize the results by order_id
-            orders:dict[str:OrderModel] = {}
+            orders: dict[str:OrderModel] = {}
             for row in result:
-                order_id = row['order_id']
+                order_id = row["order_id"]
                 if order_id not in orders:
                     orders[order_id] = OrderModel(
-                        order_id= str(order_id) ,
+                        order_id=str(order_id),
                         total_price=row["total_price"],
-                        user_id=row["user_id"] ,
-                        purchase_data= str(row["purchase_date"]) ,
-                        user_name=row["user_name"] ,
-                        items=[{
-                        "book_id":row["book_id"] ,
-                        "title":row["book_name"] ,
-                        "quantity":row["quantity"] ,
-                            "price":row["price"]
-                        }])
+                        user_id=row["user_id"],
+                        purchase_data=str(row["purchase_date"]),
+                        user_name=row["user_name"],
+                        items=[
+                            {
+                                "book_id": row["book_id"],
+                                "title": row["book_name"],
+                                "quantity": row["quantity"],
+                                "price": row["price"],
+                            }
+                        ],
+                    )
                     # {
                     #     'id': order_id,
                     #     'user_id': row['user_id'],
@@ -71,28 +68,27 @@ OFFSET %s ROWS FETCH NEXT 5 ROWS ONLY
                     # }
                 # Append each item to the order_items list for the order
                 else:
-                    orders[order_id].items.append({
-                        'book_id': row['book_id'],
-                        'book_name': row['book_name'],
-                        'quantity': row['quantity'],
-                        "price": row["price"]
-
-                    })
+                    orders[order_id].items.append(
+                        {
+                            "book_id": row["book_id"],
+                            "book_name": row["book_name"],
+                            "quantity": row["quantity"],
+                            "price": row["price"],
+                        }
+                    )
 
             print(orders)
 
-            return  {
-                "message":"success",
-                "data":[order.to_dict() for order in orders.values()],
-                "page":data["page"]
-
-            },200
-
+            return {
+                "message": "success",
+                "data": [order.to_dict() for order in orders.values()],
+                "page": data["page"],
+            }, 200
 
     except ValidationError as err:
-        return  {"errors":err.messages , "message":"error on validation check errors key for more detail"}, 400
+        return {
+            "errors": err.messages,
+            "message": "error on validation check errors key for more detail",
+        }, 400
     except Exception as err:
-        return  {
-            "message": str(err)
-
-        }, 500
+        return {"message": str(err)}, 500

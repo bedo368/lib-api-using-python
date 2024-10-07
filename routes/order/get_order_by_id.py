@@ -3,7 +3,7 @@ from models.order_model import OrderModel
 
 
 def get_order_by_id(order_id):
-    get_order_query ="""
+    get_order_query = """
        SELECT 
     orders.id AS order_id, 
     orders.purchase_date, 
@@ -26,29 +26,30 @@ where orders.id = %s
     try:
 
         with Database() as db:
-            db.cursor.execute(get_order_query, [str( order_id)])
+            db.cursor.execute(get_order_query, [str(order_id)])
             result = db.cursor.fetchall()
             if result.__len__() == 0:
-                return {
-                    "message": "Order does not exist",
-                    "status": "error"
-                }, 404
+                return {"message": "Order does not exist", "status": "error"}, 404
 
             print(result)
 
-            order = OrderModel(order_id=str( result[0]["order_id"])
-                               ,user_id=result[0]["user_id"]
-                               , purchase_data=result[0]["purchase_date"],
-                               total_price=result[0]["total_price"],
-                               user_name=result[0]["user_name"],
-                               items= [{"book_id":o["book_id"], "quantity":o["quantity"] , "price":o["price"]} for o in result]
-                               )
-            return  {
+            order = OrderModel(
+                order_id=str(result[0]["order_id"]),
+                user_id=result[0]["user_id"],
+                purchase_data=result[0]["purchase_date"],
+                total_price=result[0]["total_price"],
+                user_name=result[0]["user_name"],
+                items=[
+                    {
+                        "book_id": o["book_id"],
+                        "quantity": o["quantity"],
+                        "price": o["price"],
+                    }
+                    for o in result
+                ],
+            )
+            return {
                 "data": order.to_dict(),
             }
     except Exception as e:
-        return {
-            "message": str(e),
-            "status": "error"
-
-        },500
+        return {"message": str(e), "status": "error"}, 500

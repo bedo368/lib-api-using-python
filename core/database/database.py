@@ -10,13 +10,14 @@ from dotenv import load_dotenv
 # Load environment variables from .env file
 load_dotenv()
 
+
 class Database:
     def __init__(self):
-        self.host = os.getenv('DATABASE_HOST', 'localhost')
-        self.port = os.getenv('DATABASE_PORT', 5432)
-        self.dbname = os.getenv('DATABASE_NAME')
-        self.user = os.getenv('DATABASE_USER')
-        self.password = os.getenv('DATABASE_PASSWORD')
+        self.host = os.getenv("DATABASE_HOST", "localhost")
+        self.port = os.getenv("DATABASE_PORT", 5432)
+        self.dbname = os.getenv("DATABASE_NAME")
+        self.user = os.getenv("DATABASE_USER")
+        self.password = os.getenv("DATABASE_PASSWORD")
         self.conn = None
 
     def __enter__(self):
@@ -26,7 +27,7 @@ class Database:
                 port=self.port,
                 dbname=self.dbname,
                 user=self.user,
-                password=self.password
+                password=self.password,
             )
             # Use RealDictCursor to get results as dictionaries
             self.cursor = self.conn.cursor(cursor_factory=RealDictCursor)

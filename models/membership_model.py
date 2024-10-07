@@ -7,14 +7,10 @@ class MembershipType:
     @classmethod
     def from_db_record(cls, record):
         return cls(
-            membership_type_id=str(record.get('id')),
-            type_name=record.get('type_name'),
-            benefits=record.get('benefits')
+            membership_type_id=str(record.get("id")),
+            type_name=record.get("type_name"),
+            benefits=record.get("benefits"),
         )
 
     def to_dict(self):
-        return {
-            'id': self.id,
-            'type_name': self.type_name,
-            'benefits': self.benefits
-        }
+        return {"id": self.id, "type_name": self.type_name, "benefits": self.benefits}
