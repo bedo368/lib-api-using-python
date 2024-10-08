@@ -23,7 +23,6 @@ def rent_book( book_id ):
             'data' : res
         }
     except Exception as err :
-        print(e.with_traceback())
 
         return  {
             "message" :f" error happened : {err} ",

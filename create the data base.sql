@@ -130,3 +130,75 @@ CREATE TRIGGER before_order_item_insert
 BEFORE INSERT ON order_items
 FOR EACH ROW
 EXECUTE FUNCTION check_and_update_book_quantity();
+
+
+-- triggers
+CREATE OR REPLACE FUNCTION update_rent_status()
+RETURNS TRIGGER AS $$
+BEGIN
+    -- Update the status to 'Overdue' if the current date is greater than the due_date
+    UPDATE Rent
+    SET status = 'Overdue'
+    WHERE due_date < CURRENT_DATE AND status = 'Rented';
+
+    RETURN NULL;  -- No need to return anything from this trigger
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER check_due_date
+AFTER INSERT OR UPDATE ON Rent
+FOR EACH ROW
+EXECUTE FUNCTION update_rent_status();
+
+
+
+
+CREATE OR REPLACE FUNCTION decrement_book_count_on_rent()
+RETURNS TRIGGER AS $$
+BEGIN
+    -- Check if the book is rentable
+    IF (SELECT is_rentable FROM books WHERE id = NEW.book_id) IS FALSE THEN
+        RAISE EXCEPTION 'Book ID % is not rentable', NEW.book_id;
+    END IF;
+
+    -- Check if there is enough quantity to fulfill the rent
+    UPDATE books
+    SET count = count - 1
+    WHERE id = NEW.book_id AND count > 0;
+
+    IF NOT FOUND THEN
+        RAISE EXCEPTION 'Not enough quantity to rent book ID %', NEW.book_id;
+    END IF;
+
+    RETURN NEW;  -- Return the new row for insertion into Rent
+END;
+$$ LANGUAGE plpgsql;
+
+-- Create trigger for rent operation
+CREATE TRIGGER before_rent_insert
+BEFORE INSERT ON Rent
+FOR EACH ROW
+
+
+
+EXECUTE FUNCTION decrement_book_count_on_rent();
+
+
+CREATE OR REPLACE FUNCTION increment_book_count_on_return()
+RETURNS TRIGGER AS $$
+BEGIN
+    -- Increment the book count when a book is returned
+    UPDATE books
+    SET count = count + 1
+    WHERE id = NEW.book_id;
+
+    RETURN NEW;  -- Return the new row for update in Rent
+END;
+$$ LANGUAGE plpgsql;
+
+-- Create trigger for return operation
+CREATE TRIGGER after_rent_update
+AFTER UPDATE ON Rent
+FOR EACH ROW
+WHEN (NEW.return_date IS NOT NULL AND OLD.return_date IS NULL)
+EXECUTE FUNCTION increment_book_count_on_return();

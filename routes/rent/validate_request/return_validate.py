@@ -2,7 +2,7 @@ from jsonschema.validators import validates
 from marshmallow import Schema, fields ,validate
 
 
-class ReturnValidateSchema(Schema):
+class ReturnBookValidateSchema(Schema):
 
     return_date = fields.DateTime(data_key='return_date' , required=True)
 
