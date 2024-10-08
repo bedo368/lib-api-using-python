@@ -2,6 +2,7 @@ from flask import Flask
 
 from routes.book import book_bp
 from routes.order import orders_bp
+from routes.rent import rent_BP
 from routes.user import user_bp
 from flask import request
 
@@ -20,6 +21,8 @@ app.register_blueprint(user_bp, url_prefix="/api")
 app.register_blueprint(book_bp, url_prefix="/api")
 
 app.register_blueprint(orders_bp, url_prefix="/api")
+
+app.register_blueprint(rent_BP ,url_prefix="/api")
 
 if __name__ == "__main__":
     app.run(debug=True)
