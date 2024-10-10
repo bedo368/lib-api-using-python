@@ -1,8 +1,7 @@
 from core.database.database import Database
 
 
-def return_book_database ( data : dict ) -> dict:
-
+def return_book_database(data: dict) -> dict:
 
     return_query = """
     update rent 
@@ -15,19 +14,16 @@ def return_book_database ( data : dict ) -> dict:
 
     try:
 
-        with Database() as db :
+        with Database() as db:
 
-            res =  db.execute_query(return_query, (data['return_date'], data['fine'], data['rent_id']) , fetchone=True)
+            res = db.execute_query(
+                return_query,
+                (data["return_date"], data["fine"], data["rent_id"]),
+                fetchone=True,
+            )
 
             print(res)
-            return  {
-                "rent_id": res
-            }
-
-
-
-
-
+            return {"rent_id": res}
 
     except:
         raise
