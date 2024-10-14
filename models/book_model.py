@@ -17,7 +17,7 @@ class Book:
         is_rentable=True,
         language=None,
     ):
-        self.id = str(book_id)
+        self.book_id = str(book_id)
         self.title = title
         self.count = count
         self.is_rentable = is_rentable
@@ -39,7 +39,7 @@ class Book:
 
     def to_dict(self):
         return {
-            "id": self.id,
+            "id": self.book_id,
             "title": self.title,
             "count": self.count,
             "is_rentable": self.is_rentable,

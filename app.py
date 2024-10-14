@@ -1,5 +1,6 @@
 from flask import Flask
 
+from routes.authors import author_bp
 from routes.book import book_bp
 from routes.order import orders_bp
 from routes.rent import rent_BP
@@ -23,6 +24,9 @@ app.register_blueprint(book_bp, url_prefix="/api")
 app.register_blueprint(orders_bp, url_prefix="/api")
 
 app.register_blueprint(rent_BP, url_prefix="/api")
+
+
+app.register_blueprint(author_bp , url_prefix="/api")
 
 if __name__ == "__main__":
     app.run(debug=True)
